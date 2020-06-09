@@ -37,4 +37,4 @@ def get_test_plan_from_service_call():
     """
     resp = service_tester.test(path='/search/pages/results/', params={'format': 'json','proxtext': 'fire'})
 
-    return jsonify(resp)
+    return jsonify(resp.json())
