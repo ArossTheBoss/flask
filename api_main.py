@@ -5,7 +5,7 @@ from flasgger import Swagger
 
 
 from views.get_test_plan import get_test_plan, get_test_plan_from_service_call
-# from views.create_test import CreateTestView
+from views.create_test_plan import CreateTestPlanView
 from helpers.custom_exception_template import CustomExceptionTemplate
 
 zephyr = Blueprint('zephyr', __name__)
@@ -26,7 +26,7 @@ def handle_error(error):
 
 zephyr.add_url_rule('test-plans/<test_plan_id>', 'get_test_plan', get_test_plan)
 zephyr.add_url_rule('test-plans/', 'get_test_plan_from_service_call', get_test_plan_from_service_call)
-# zephyr.add_url_rule('test_cases', view_func=CreateTestView.as_view('create_TC'), methods=['POST'])
+zephyr.add_url_rule('test-plans/', view_func=CreateTestPlanView.as_view('create_test_plan'), methods=['POST'])
 
 app = Flask(__name__)
 app.register_blueprint(zephyr, url_prefix=service_prefix)
@@ -62,6 +62,7 @@ swagger_config = {
 @app.route('/', methods=['GET'])
 def home():
     return "<center><h1>Home Page</h1><p>This is the entry point to all the apps</p></center>"
+
 
 swagger = Swagger(app, template=spec.to_dict(), config=swagger_config)
 
