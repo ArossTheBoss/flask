@@ -2,6 +2,7 @@
 from apispec import APISpec
 from flask import Blueprint, Flask, jsonify
 from flasgger import Swagger
+from helpers import logger_config
 
 
 from views.get_test_plan import get_test_plan, get_test_plan_from_service_call
@@ -60,11 +61,13 @@ swagger_config = {
 
 
 @app.route('/', methods=['GET'])
-def home():
+def index():
     return "<center><h1>Home Page</h1><p>This is the entry point to all the apps</p></center>"
 
 
 swagger = Swagger(app, template=spec.to_dict(), config=swagger_config)
 
 if __name__ == "__main__":
+    logger_config.configure_log(log_config_file_name=logger_config.LogFiles.CLF_CONFIG,
+                                log_storage_file_name=logger_config.LogFiles.zephyr)
     app.run(host='localhost', threaded=True, port=5000)

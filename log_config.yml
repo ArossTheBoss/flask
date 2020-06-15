@@ -1,0 +1,26 @@
+version: 1
+disable_existing_loggers: false
+
+formatters:
+  default:
+    class: helpers.logger_config.RequestFormatter
+    format: "%(message)s - %(levelname)s"
+
+handlers:
+  file:
+    class: logging.handlers.TimedRotatingFileHandler
+    formatter: default
+    filename: "/app/logs/{log_file_name}.log"
+    when: midnight
+    interval: 1
+    backupCount: 0
+    level: INFO
+  console:
+    class: logging.StreamHandler
+    formatter: default
+
+root:
+  level: INFO
+  handlers:
+    - file
+    - console

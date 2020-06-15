@@ -21,7 +21,7 @@ class Env(Validator):
         self.exclude = exclude
 
     def __call__(self, value):
-        expected_envs = ['dev','staging','uat', 'prod']
+        expected_envs = ['dev', 'staging', 'uat', 'prod']
         value = value.lower()
         if value not in expected_envs:
             raise ValidationError(ErrorTemplates.VALID_CHOICES.format(expected_envs))
